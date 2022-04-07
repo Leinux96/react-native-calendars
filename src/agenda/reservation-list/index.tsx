@@ -277,6 +277,7 @@ class ReservationList extends Component<ReservationListProps, State> {
 
     return (
       <FlatList
+        scrollEnabled={false}
         ref={this.list}
         style={style}
         contentContainerStyle={this.style.content}
