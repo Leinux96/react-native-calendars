@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendars",
-  "version": "1.22.0",
+  "version": "1.22.1",
   "main": "src/index.ts",
   "types": "src/index.d.ts",
   "description": "React Native Calendar Components",
@@ -29,6 +29,9 @@
     "registry": "https://registry.npmjs.org/"
   },
   "author": "Wix.com",
+  "customed by" : {
+    "name": "Leinux96",
+  },
   "license": "MIT",
   "dependencies": {
     "fs": "^0.0.1-security",
@@ -41,6 +44,7 @@
     "recyclerlistview": "^3.0.5",
     "xdate": "^0.8.0"
   },
+  
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/eslint-parser": "^7.13.4",

@@ -10,7 +10,8 @@ import {
   ViewStyle,
   LayoutChangeEvent,
   NativeSyntheticEvent,
-  NativeScrollEvent
+  NativeScrollEvent,
+  Button
 } from 'react-native';
 
 import {extractComponentProps} from '../componentUpdater';
@@ -95,6 +96,9 @@ export default class Agenda extends Component<AgendaProps, State> {
   private scrollPad: React.RefObject<any> = React.createRef();
   private calendar: React.RefObject<CalendarList> = React.createRef();
   private knob: React.RefObject<View> = React.createRef();
+  private arrowLeft: React.RefObject<View> = React.createRef();
+  private arrowRight: React.RefObject<View> = React.createRef();
+
   public list: React.RefObject<ReservationList> = React.createRef();
 
   constructor(props: AgendaProps) {
@@ -388,7 +392,43 @@ export default class Agenda extends Component<AgendaProps, State> {
   renderWeekNumbersSpace = () => {
     return this.props.showWeekNumbers && <View style={this.style.dayHeader}/>;
   };
+  
+  onDayChangeManual = (num: Number) => {
+    const day = this.state.selectedDay.clone();
+    day.addDays(num)
+    const withAnimation = sameMonth(day, this.state.selectedDay);
+    this.calendar?.current?.scrollToDay(day, this.calendarOffset(), withAnimation);
+    
+    this.setState({selectedDay: day});
 
+    this.props.onDayChange?.(xdateToData(day));
+  };
+  renderArrowLeft = () =>{
+    let arrowLeft: JSX.Element | null = <View style={this.style.arrowLeft} />;
+      arrowLeft = !this.state.calendarScrollable  ? (
+        <View style={this.style.arrowLeftContainer}>
+          <View ref={this.arrowLeft}>
+          <Button title='<' onPress={() =>this.onDayChangeManual(-1)}   />
+</View>
+        </View>
+      ) : null;
+    
+    return arrowLeft;
+ 
+  }
+  renderArrowRight = () =>{
+    let arrowRight: JSX.Element | null = <View style={this.style.arrowRight} />;
+    arrowRight = !this.state.calendarScrollable  ? (
+      <View style={this.style.arrowRightContainer}>
+        <View ref={this.arrowRight}>
+        <Button title='>' onPress={() =>this.onDayChangeManual(1)}   />
+</View>
+      </View>
+    ) : null;
+  
+  return arrowRight;
+  }
+  
   render() {
     const {hideKnob, style, testID} = this.props;
     const agendaHeight = this.initialScrollPadPosition();
@@ -453,11 +493,18 @@ export default class Agenda extends Component<AgendaProps, State> {
             {this.renderCalendarList()}
           </Animated.View>
           {this.renderKnob()}
+          {this.renderArrowLeft()}
+          {this.renderArrowRight()}
+
         </Animated.View>
+
         <Animated.View style={weekdaysStyle}>
+
           {this.renderWeekNumbersSpace()}
           {this.renderWeekDaysNames()}
+
         </Animated.View>
+     
         <Animated.ScrollView
           ref={this.scrollPad}
           style={[this.style.scrollPadStyle, scrollPadStyle]}
@@ -472,6 +519,7 @@ export default class Agenda extends Component<AgendaProps, State> {
           onScrollEndDrag={this.onSnapAfterDrag}
           onScroll={Animated.event([{nativeEvent: {contentOffset: {y: this.state.scrollY}}}], {useNativeDriver: true})}
         >
+          
           <View
             testID={AGENDA_CALENDAR_KNOB}
             style={{height: agendaHeight + KNOB_HEIGHT}}

@@ -22,7 +22,7 @@
       "description": "Handler which gets executed when items for a certain month should be loaded (month became visible)"
     },
     {
-      "name": "onDayChange",
+      "name": "",
       "type": "(data: DateData) => void",
       "description": "Handler which gets executed when day changes while scrolling agenda list"
     },

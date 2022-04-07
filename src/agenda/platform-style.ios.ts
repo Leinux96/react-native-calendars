@@ -21,6 +21,18 @@ export default function platformStyles(appStyle: Theme) {
       paddingTop: 15,
       paddingBottom: 7,
       backgroundColor: appStyle.calendarBackground
+    },
+    arrowLeft: {
+      width: 38,
+      height: 7,
+      marginTop: 10,
+      borderRadius: 3,
+      backgroundColor: appStyle.agendaKnobColor
+    },
+    arrowRight: {
+      width: 38,
+      height: 7,
+      backgroundColor: appStyle.agendaKnobColor
     }
   };
 }

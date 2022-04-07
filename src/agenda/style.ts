@@ -5,7 +5,7 @@ import {Theme} from '../types';
 
 export default function styleConstructor(theme: Theme = {}) {
   const appStyle = {...defaultStyle, ...theme};
-  const {knob, weekdays} = platformStyles(appStyle);
+  const {knob, weekdays,arrowLeft,arrowRight} = platformStyles(appStyle);
 
   return StyleSheet.create({
     container: {
@@ -16,6 +16,8 @@ export default function styleConstructor(theme: Theme = {}) {
       flex: 1
     },
     knob,
+    arrowLeft,
+    arrowRight,
     weekdays,
     header: {
       overflow: 'hidden',
@@ -42,6 +44,18 @@ export default function styleConstructor(theme: Theme = {}) {
       fontWeight: appStyle.textDayHeaderFontWeight,
       color: appStyle.textSectionTitleColor
     },
+    arrowRightContainer:{
+      position: 'absolute',
+      right:1,
+      bottom:30,
+
+    },
+    arrowLeftContainer: {
+      position: 'absolute',
+      left:1,
+      bottom:30,
+    },
+   
     reservations: {
       flex: 1,
       marginTop: 104,
