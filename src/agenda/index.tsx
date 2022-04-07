@@ -404,11 +404,17 @@ export default class Agenda extends Component<AgendaProps, State> {
     this.props.onDayChange?.(xdateToData(day));
   };
   renderArrowLeft = () =>{
+    let disabled = false
+    if(this.props.maxDate){
+      if(this.state.selectedDay >= parseDate(this.props.minDate )){
+        disabled = true
+      }
+    }
     let arrowLeft: JSX.Element | null = <View style={this.style.arrowLeft} />;
       arrowLeft = !this.state.calendarScrollable  ? (
         <View style={this.style.arrowLeftContainer}>
           <View ref={this.arrowLeft}>
-          <Button title='<' onPress={() =>this.onDayChangeManual(-1)}   />
+          <Button disabled={disabled} title='<' onPress={() =>this.onDayChangeManual(-1)}   />
 </View>
         </View>
       ) : null;
@@ -417,11 +423,17 @@ export default class Agenda extends Component<AgendaProps, State> {
  
   }
   renderArrowRight = () =>{
+    let disabled = false
+if(this.props.maxDate){
+  if(this.state.selectedDay >= parseDate(this.props.maxDate )){
+    disabled = true
+  }
+}
     let arrowRight: JSX.Element | null = <View style={this.style.arrowRight} />;
     arrowRight = !this.state.calendarScrollable  ? (
       <View style={this.style.arrowRightContainer}>
         <View ref={this.arrowRight}>
-        <Button title='>' onPress={() =>this.onDayChangeManual(1)}   />
+        <Button disabled={disabled} title='>' onPress={() =>this.onDayChangeManual(1)}   />
 </View>
       </View>
     ) : null;
