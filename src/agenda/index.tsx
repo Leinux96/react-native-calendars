@@ -414,7 +414,7 @@ export default class Agenda extends Component<AgendaProps, State> {
       arrowLeft = !this.state.calendarScrollable  ? (
         <View style={this.style.arrowLeftContainer}>
           <View ref={this.arrowLeft}>
-          <Button disabled={disabled} title='<' onPress={() =>this.onDayChangeManual(-1)}   />
+          <Button color={'orange'} style={this.style.arrowLeftContainer} disabled={disabled} title='<' onPress={() =>this.onDayChangeManual(-1)}   />
 </View>
         </View>
       ) : null;
@@ -433,7 +433,7 @@ if(this.props.maxDate){
     arrowRight = !this.state.calendarScrollable  ? (
       <View style={this.style.arrowRightContainer}>
         <View ref={this.arrowRight}>
-        <Button disabled={disabled} title='>' onPress={() =>this.onDayChangeManual(1)}   />
+        <Button color={'orange'} disabled={disabled} title='>' onPress={() =>this.onDayChangeManual(1)}   />
 </View>
       </View>
     ) : null;
